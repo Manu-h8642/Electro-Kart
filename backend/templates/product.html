@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-8 grid-margin stretch-card">
+              <div class="card" style="width:800px;margin-left:30px;margin-top:30px;margin-bottom:30px;">
+                <div class="card-body">
+                  <h4 class="card-title">Product Details.!</h4>
+                  <p class="card-description">
+                     Device Details
+                  </p>
+                  <form class="forms-sample" method="post"  action="{% url 'psave' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleSelectGender">select Category</label>
+                        <select class="form-control" id="exampleSelectGender" name="cn">
+                          {% for i in cat %}
+                          <option>{{i.name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input type="text" class="form-control" placeholder="Product Name" name="n" value="" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Description</label>
+                      <textarea class="form-control" rows="4" name="d" placeholder="Description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>Price</label>
+                      <input type="text" class="form-control" placeholder="Price" name="p" value="" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Upload Image</label>
+                      <input type="file" name="img" required><br><br>
+                      <input type="file" name="img1" required><br><br>
+                      <input type="file" name="img2" required>
+                    </div>
+                      <a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                      </a>
+                    <button class="btn btn-danger">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'success' %}
+      <script>
+        swal('{{i}}','','success')
+      </script>
+    {% elif i.tags == 'warning' %}
+      <script>
+        swal('{{i}}','','warning')
+      </script>
+    {% elif i.tags == 'error' %}
+      <script>
+        swal('{{i}}','','error')
+      </script>
+    {% else %}
+      <script>
+        swal('{{i}}','','info')
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}
